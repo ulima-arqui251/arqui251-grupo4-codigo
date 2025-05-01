@@ -1,0 +1,43 @@
+name: FastAPI CI
+
+on:
+  push:
+    branches: ["azure-prod"]
+
+env:
+  AZURE_WEBAPP_NAME: lissachatina-app-v2
+  AZURE_WEBAPP_PACKAGE_PATH: "./server"
+
+jobs:
+  build-and-release:
+    name: Build & Deploy to Azure
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - name: Obtener código fuente
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            server
+
+      - name: Instalar python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+
+      - name: Instalar las dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Crear web app
+        uses: azure/appservice-build@v2
+
+      - name: Despliegue de WebApp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
