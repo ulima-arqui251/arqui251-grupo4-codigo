@@ -2,7 +2,7 @@ name: Flutter CI
 
 on:
   push:
-    branches: ["prod"]
+    branches: ["main"]
 
 jobs:
   build-and-release:
