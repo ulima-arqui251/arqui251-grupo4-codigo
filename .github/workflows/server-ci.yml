@@ -5,7 +5,7 @@ on:
     branches: ["azure-prod"]
 
 env:
-  AZURE_WEBAPP_NAME: lissachatina-app-v2
+  AZURE_WEBAPP_NAME: desmodus-app
   AZURE_WEBAPP_PACKAGE_PATH: "./server"
 
 jobs:

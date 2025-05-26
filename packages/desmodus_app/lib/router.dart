@@ -6,7 +6,7 @@ import 'package:desmodus_app/view/ui/theme/theme.dart';
 GetMaterialApp getAppRouter(String firstScreen) {
   return GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'Lissachatina App',
+    title: 'Desmodus App',
     theme: appTheme,
     darkTheme: darkAppTheme,
     initialRoute: firstScreen,
