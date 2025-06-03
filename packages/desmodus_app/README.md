@@ -1,16 +1,15 @@
-# desmodus_app
+# Desmodus App
 
-A new Flutter project.
+## Ambiente de desarrollo
 
-## Getting Started
+### Environment variables
 
-This project is a starting point for a Flutter application.
+1. Crear archivos secrets.json
+2. Asignar los secretos requeridos en .env.example
+3. Correr el [comando de ejecución](#comando-de-ejecución)
 
-A few resources to get you started if this is your first Flutter project:
+### Comando de ejecución
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+flutter run --dart-define-from-file .env
+```
