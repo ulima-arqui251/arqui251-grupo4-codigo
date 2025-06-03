@@ -4,9 +4,8 @@
 
 ### Environment variables
 
-1. Crear archivos secrets.json
-2. Asignar los secretos requeridos en .env.example
-3. Correr el [comando de ejecución](#comando-de-ejecución)
+1. Completar con credenciales en [.env](.env)
+2. Correr el [comando de ejecución](#comando-de-ejecución)
 
 ### Comando de ejecución
 
