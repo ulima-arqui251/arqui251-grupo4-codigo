@@ -2,11 +2,11 @@ name: FastAPI CI
 
 on:
   push:
-    branches: ["azure-prod"]
+    branches: ["main"]
 
 env:
   AZURE_WEBAPP_NAME: desmodus-app
-  AZURE_WEBAPP_PACKAGE_PATH: "./server"
+  AZURE_WEBAPP_PACKAGE_PATH: "packages/server"
 
 jobs:
   build-and-release:
