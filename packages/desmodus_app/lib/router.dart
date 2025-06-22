@@ -1,4 +1,5 @@
-import 'package:desmodus_app/view/screens/login/detector/detector_screen.dart';
+import 'package:desmodus_app/view/screens/detector/detector_screen.dart';
+import 'package:desmodus_app/viewmodel/bindings/initial_bindings.dart';
 import 'package:get/route_manager.dart';
 import 'package:desmodus_app/view/screens/login/login_screen.dart';
 import 'package:desmodus_app/view/screens/login/no-auth-cta/no_auth_cta_screen.dart';
@@ -44,7 +45,7 @@ GetMaterialApp getAppRouter(String firstScreen) {
       //         DashboardBindings(),
       //       ]),
       // ],
-      // initialBinding: AuthBindings(),
     ],
+    initialBinding: InitialBindings(),
   );
 }

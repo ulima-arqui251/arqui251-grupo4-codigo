@@ -1,9 +1,9 @@
 import 'package:desmodus_app/utils/padding_extensions.dart';
 import 'package:desmodus_app/utils/permissions.dart'
     show checkCameraAndStoragePermissions;
-import 'package:desmodus_app/view/screens/login/detector/widget/missing_permissions.dart'
+import 'package:desmodus_app/view/screens/detector/widget/missing_permissions.dart'
     show PermissionsMissingWidget;
-import 'package:desmodus_app/view/screens/login/detector/widget/times.dart'
+import 'package:desmodus_app/view/screens/detector/widget/times.dart'
     show Times;
 import 'package:desmodus_app/viewmodel/detector_controller.dart';
 import 'package:flutter/material.dart';

@@ -18,19 +18,18 @@ android {
     kotlinOptions { jvmTarget = JavaVersion.VERSION_11.toString() }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID
-        // (https://developer.android.com/studio/build/application-id.html).
         applicationId = "github.jesufrancesco.desmodus_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+
+        minSdk = 26
+
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
 
-        ndk {
-            abiFilters 'arm64-v8a', 'armeabi-v7a'
-        }
+        // ndk {
+        //     abiFilters += "arm64-v8a"
+        //     abiFilters += "armeabi-v7a"
+        // }
     }
 
     buildTypes {
