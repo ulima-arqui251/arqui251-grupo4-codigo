@@ -11,7 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  ultralytics_yolo: 
+    path: ./modules/yolo-flutter-app
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   flutter_svg: ^2.1.0

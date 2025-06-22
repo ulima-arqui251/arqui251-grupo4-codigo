@@ -1,3 +1,4 @@
+import 'package:desmodus_app/view/screens/login/detector/detector_screen.dart';
 import 'package:get/route_manager.dart';
 import 'package:desmodus_app/view/screens/login/login_screen.dart';
 import 'package:desmodus_app/view/screens/login/no-auth-cta/no_auth_cta_screen.dart';
@@ -18,16 +19,15 @@ GetMaterialApp getAppRouter(String firstScreen) {
           GetPage(name: '/no-auth-cta', page: () => const NoAuthCtaScreen()),
         ],
       ),
+      GetPage(
+        name: '/detector',
+        page: () => const DetectorScreen(),
+        // bindings: [],
+      ),
+
       //   GetPage(
       //     name: '/location-map',
       //     page: () => const LocationMapFullScreen(),
-      //   ),
-      //   GetPage(
-      //     name: '/camera',
-      //     page: () => const UltralyticsCameraScreen(),
-      //     bindings: [
-      //       CameraBindings(),
-      //     ],
       //   ),
       //   GetPage(
       //     name: '/cuestionario',
