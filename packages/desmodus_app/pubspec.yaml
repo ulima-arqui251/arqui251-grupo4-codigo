@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  ultralytics_yolo: ^0.1.4
   get: ^4.7.2
   flutter_svg: ^2.1.0
   shared_preferences: ^2.5.3
@@ -48,21 +47,21 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/image/logo.png"
-  image_path: "assets/image/logo.png"
+  image_path: "assets/image/logo_filled.png"
   min_sdk_android: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/image/logo_filled.png"
 
 flutter_native_splash:
   # dart run flutter_native_splash:create
   color: "#ccffcc"
   color_dark: "#121212"
 
-  image: assets/image/logo.png
-  # image_dark: assets/image/logo_blanco.png
+  image: assets/image/logo_filled.png
+  # image_dark: assets/image/logo_filled.png
 
   android_12:
-    image: assets/image/logo.png
+    image: assets/image/logo_filled.png
     icon_background_color: "#ffffff"
 
     # image_dark: assets/image/logo_blanco.png
