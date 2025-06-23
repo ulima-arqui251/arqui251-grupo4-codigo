@@ -35,6 +35,8 @@ flutter:
   assets:
     - pubspec.yaml
     - assets/
+    - assets/ai-models/
+    - assets/ai-models/yolo11n/
     - assets/fonts/
     - assets/image/
   fonts:

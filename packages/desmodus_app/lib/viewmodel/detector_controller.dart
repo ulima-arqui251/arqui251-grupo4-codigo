@@ -9,7 +9,9 @@ import 'package:ultralytics_yolo/ultralytics_yolo.dart';
 import 'package:ultralytics_yolo/yolo_model.dart';
 
 class DetectorController extends GetxController {
-  final detectionModel = 'desmodus-yolo11'.obs;
+  // final detectionModel = 'desmodus-yolo11'.obs;
+  final detectionModel = 'yolo11n'.obs;
+
   final detectionThreshold = 0.70.obs;
 
   final isInferenceOn = true.obs;
@@ -21,9 +23,11 @@ class DetectorController extends GetxController {
   Future<ObjectDetector> initObjectDetectorWithLocalModel() async {
     final selectedModel = detectionModel.value;
 
-    final modelPath = await _copy("assets/models/$selectedModel/model.tflite");
+    final modelPath = await _copy(
+      "assets/ai-models/$selectedModel/model.tflite",
+    );
     final metadataPath = await _copy(
-      "assets/models/$selectedModel/metadata.yaml",
+      "assets/ai-models/$selectedModel/metadata.yaml",
     );
 
     final model = LocalYoloModel(
