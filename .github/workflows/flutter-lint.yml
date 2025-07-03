@@ -42,6 +42,6 @@ jobs:
       - name: Análisis de código estático
         run: |
           echo "```" >> $GITHUB_STEP_SUMMARY
-          flutter analyze | tee -a $GITHUB_STEP_SUMMARY
+          flutter analyze >> $GITHUB_STEP_SUMMARY
           echo "```" >> $GITHUB_STEP_SUMMARY
         continue-on-error: true
