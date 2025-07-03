@@ -93,9 +93,9 @@ class _UltralyticsYoloCameraPreviewState
                     creationParamsCodec: const StandardMessageCodec(),
                   );
                 case TargetPlatform.fuchsia ||
-                    TargetPlatform.linux ||
-                    TargetPlatform.windows ||
-                    TargetPlatform.macOS:
+                      TargetPlatform.linux ||
+                      TargetPlatform.windows ||
+                      TargetPlatform.macOS:
                   return Container();
               }
             }(),
@@ -115,51 +115,54 @@ class _UltralyticsYoloCameraPreviewState
 
                   return StreamBuilder(
                     stream: objectDetector.detectionResultStream,
-                    builder:
-                        (
-                          BuildContext context,
-                          AsyncSnapshot<List<DetectedObject?>?> snapshot,
-                        ) {
-                          if (snapshot.data == null ||
-                              !widget.controller.value.isInferenceOn) {
-                            return Container();
-                          }
+                    builder: (
+                      BuildContext context,
+                      AsyncSnapshot<List<DetectedObject?>?> snapshot,
+                    ) {
+                      if (snapshot.data == null ||
+                          !widget.controller.value.isInferenceOn) {
+                        return Container();
+                      }
 
-                          final inferenceData = snapshot.data!;
+                      final inferenceData = snapshot.data!;
+                      print("inferenceData !!!!");
+                      print("inferenceData !!!!");
+                      print("inferenceData !!!!");
+                      print(inferenceData);
 
-                          if (inferenceData.isEmpty) {
-                            // Decrementamos el contador de inferencias
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              // WIP
-                            });
-                            return Container();
-                          }
+                      if (inferenceData.isEmpty) {
+                        // Decrementamos el contador de inferencias
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          // WIP
+                        });
+                        return Container();
+                      }
 
-                          // PostFrame para no interrumpir el frame actual
-                          // y evitar problemas de rendimiento
-                          WidgetsBinding.instance.addPostFrameCallback((
-                            _,
-                          ) async {
-                            // Verificamos si se ha detectado el caracol africano
-                            if (inferenceData.every(
-                              (detectedObject) =>
-                                  detectedObject?.label != "african-snail",
-                            )) {
-                              return;
-                            }
+                      // PostFrame para no interrumpir el frame actual
+                      // y evitar problemas de rendimiento
+                      WidgetsBinding.instance.addPostFrameCallback((
+                        _,
+                      ) async {
+                        // Verificamos si se ha detectado el caracol africano
+                        if (inferenceData.every(
+                          (detectedObject) =>
+                              detectedObject?.label != "african-snail",
+                        )) {
+                          return;
+                        }
 
-                            // Incrementamos el contador de inferencias
-                            // WIP
-                          });
+                        // Incrementamos el contador de inferencias
+                        // WIP
+                      });
 
-                          return CustomPaint(
-                            painter: ObjectDetectorPainter(
-                              snapshot.data! as List<DetectedObject>,
-                              widget.boundingBoxesColorList,
-                              widget.controller.value.strokeWidth,
-                            ),
-                          );
-                        },
+                      return CustomPaint(
+                        painter: ObjectDetectorPainter(
+                          snapshot.data! as List<DetectedObject>,
+                          widget.boundingBoxesColorList,
+                          widget.controller.value.strokeWidth,
+                        ),
+                      );
+                    },
                   );
                 // ignore: type_literal_in_constant_pattern PORFAVOR IGNORAR ESTE WARNING ME QUITO MEDIO DÍA DEBUGEANDOLO
                 case ImageClassifier:
@@ -194,13 +197,11 @@ class _UltralyticsYoloCameraPreviewState
 
                   // Adjust the sensitivity for zoom out
                   if (newZoomFactor < _currentZoomFactor) {
-                    newZoomFactor =
-                        _currentZoomFactor -
+                    newZoomFactor = _currentZoomFactor -
                         (_zoomSensitivity *
                             (_currentZoomFactor - newZoomFactor));
                   } else {
-                    newZoomFactor =
-                        _currentZoomFactor +
+                    newZoomFactor = _currentZoomFactor +
                         (_zoomSensitivity *
                             (newZoomFactor - _currentZoomFactor));
                   }
