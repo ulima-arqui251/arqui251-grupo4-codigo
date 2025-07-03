@@ -1,0 +1,41 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  flutter-lint:
+    name: Análisis de código estático
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/desmodus_app
+
+    steps:
+      #1: Clonar repo
+      - name: Obtener código fuente
+        uses: actions/checkout@v4
+
+        #2: Set up jdk
+      - name: Instalar Java
+        uses: actions/setup-java@v3.12.0
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+        #4: Set up flutter sdk
+      - name: Instalar flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+        #5: Obtener dependencias
+      - name: Obtener dependencias
+        run: flutter pub get
+
+      - run: echo "# Resumen de análisis de código 🔎\n---\n" >> $GITHUB_STEP_SUMMARY
+
+        #6: Lint de código
+      - name: Análisis de código estático
+        run: echo "```\n$(flutter analyze)\n```\n" >> $GITHUB_STEP_SUMMARY

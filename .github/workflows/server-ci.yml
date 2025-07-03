@@ -1,12 +1,9 @@
 name: FastAPI CI
 
 on:
-  push:
-    branches: ["main"]
-
-env:
-  AZURE_WEBAPP_NAME: desmodus-app
-  AZURE_WEBAPP_PACKAGE_PATH: "packages/server"
+  workflow_dispatch:
+  # push:
+  #   branches: ["main"]
 
 jobs:
   build-and-release:
@@ -32,12 +29,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Crear web app
-        uses: azure/appservice-build@v2
-
-      - name: Despliegue de WebApp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - name: Pruebas unitarias
+        run: |
+          echo "wip"
