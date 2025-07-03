@@ -11,14 +11,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  ultralytics_yolo: 
+    path: ./modules/yolo-flutter-app
   cupertino_icons: ^1.0.8
-  ultralytics_yolo: ^0.1.4
   get: ^4.7.2
   flutter_svg: ^2.1.0
   shared_preferences: ^2.5.3
   flutter_launcher_icons: ^0.14.3
   flutter_native_splash: ^2.4.6
+  path_provider: ^2.1.5
+  device_info_plus: ^11.5.0
+  permission_handler: ^12.0.0+1
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +35,9 @@ flutter:
   assets:
     - pubspec.yaml
     - assets/
+    - assets/ai-models/
+    - assets/ai-models/yolo11n/
+    - assets/ai-models/desmodus-y11n/
     - assets/fonts/
     - assets/image/
   fonts:
@@ -48,21 +55,21 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/image/logo.png"
-  image_path: "assets/image/logo.png"
+  image_path: "assets/image/logo_filled.png"
   min_sdk_android: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/image/logo_filled.png"
 
 flutter_native_splash:
   # dart run flutter_native_splash:create
   color: "#ccffcc"
   color_dark: "#121212"
 
-  image: assets/image/logo.png
-  # image_dark: assets/image/logo_blanco.png
+  image: assets/image/logo_filled.png
+  # image_dark: assets/image/logo_filled.png
 
   android_12:
-    image: assets/image/logo.png
+    image: assets/image/logo_filled.png
     icon_background_color: "#ffffff"
 
     # image_dark: assets/image/logo_blanco.png

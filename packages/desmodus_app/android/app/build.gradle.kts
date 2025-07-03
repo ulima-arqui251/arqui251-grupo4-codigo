@@ -7,27 +7,29 @@ plugins {
 
 android {
     namespace = "github.jesufrancesco.desmodus_app"
+    ndkVersion = "27.0.12077973"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
+    kotlinOptions { jvmTarget = JavaVersion.VERSION_11.toString() }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "github.jesufrancesco.desmodus_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+
+        minSdk = 26
+
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // ndk {
+        //     abiFilters += "arm64-v8a"
+        //     abiFilters += "armeabi-v7a"
+        // }
     }
 
     buildTypes {
@@ -37,8 +39,10 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+    aaptOptions {
+        noCompress  += "tflite"
+        noCompress  += "lite"
+    }
 }
 
-flutter {
-    source = "../.."
-}
+flutter { source = "../.." }

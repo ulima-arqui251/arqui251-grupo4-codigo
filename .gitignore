@@ -1,3 +1,9 @@
+packages/notebooks/datasets/*
+!packages/notebooks/datasets/.gitkeep
+packages/notebooks/models/*
+packages/notebooks/runs/*
+!packages/notebooks/models/.gitkeep
+packages/notebooks/*.npy
 # Miscellaneous
 *.class
 *.log

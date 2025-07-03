@@ -40,8 +40,7 @@ class NoAuthCtaScreen extends StatelessWidget {
                   ),
                   10.ph,
                   ElevatedButton(
-                    // onPressed: () => Get.offAndToNamed("/camera"),
-                    onPressed: () => Get.back(),
+                    onPressed: () => Get.offAndToNamed("/detector"),
                     child: const Text('Continuar a detector'),
                   ),
                   10.ph,
