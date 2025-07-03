@@ -38,4 +38,5 @@ jobs:
 
         #6: Lint de código
       - name: Análisis de código estático
-        run: echo "```\n$(flutter analyze)\n```\n" >> $GITHUB_STEP_SUMMARY
+        run: flutter analyze | tee -a $GITHUB_STEP_SUMMARY
+        continue-on-error: true
