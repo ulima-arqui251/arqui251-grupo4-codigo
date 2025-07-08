@@ -27,6 +27,11 @@ dependencies:
   path: ^1.9.1
   flutter_map: ^8.1.1
   location: ^8.0.1
+  latlong2: ^0.9.1
+  geolocator: ^9.0.0
+  flutter_local_notifications: ^17.0.0
+  share_plus: ^7.2.1
+  intl: ^0.18.1
   app_links: ^3.4.1
   google_sign_in: ^6.1.5
   url_launcher: ^6.1.12
