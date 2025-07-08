@@ -1,4 +1,3 @@
-import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:desmodus_app/view/screens/login/login_screen.dart';
 import 'package:desmodus_app/view/screens/login/no-auth-cta/no_auth_cta_screen.dart';
@@ -12,12 +11,6 @@ import 'package:desmodus_app/viewmodel/bindings/initial_bindings.dart';
 import 'package:desmodus_app/viewmodel/bindings/auth_bindings.dart';
 import 'package:desmodus_app/viewmodel/controllers/location_controller.dart';
 import 'package:desmodus_app/viewmodel/controllers/sightings/remote_sightings_controller.dart';
-import 'package:desmodus_app/viewmodel/middleware/auth_guard.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-import 'package:get/get.dart';
-import 'package:desmodus_app/view/screens/login/login_screen.dart';
-import 'package:desmodus_app/view/screens/login/no-auth-cta/no_auth_cta_screen.dart';
-import 'package:desmodus_app/view/ui/theme/theme.dart';
 
 GetMaterialApp getAppRouter(String firstScreen) {
   return GetMaterialApp(
@@ -32,10 +25,7 @@ GetMaterialApp getAppRouter(String firstScreen) {
         page: () => const LoginScreen(),
         binding: AuthBindings(),
         children: [
-          GetPage(
-            name: '/no-auth-cta',
-            page: () => const NoAuthCtaScreen(),
-          ),
+          GetPage(name: '/no-auth-cta', page: () => const NoAuthCtaScreen()),
         ],
       ),
       GetPage(
@@ -56,10 +46,7 @@ GetMaterialApp getAppRouter(String firstScreen) {
           Get.lazyPut(() => LocationController());
         }),
       ),
-      GetPage(
-        name: '/cuestionario',
-        page: () => const CuestionarioScreen(),
-      ),
+      GetPage(name: '/cuestionario', page: () => const CuestionarioScreen()),
       //  GetPage(
       //    name: '/location-map',
       //    page: () => const LocationMapFullScreen(),
