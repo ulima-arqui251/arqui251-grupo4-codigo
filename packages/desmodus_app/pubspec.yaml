@@ -1,7 +1,7 @@
 name: desmodus_app
 description: "Cliente móvil para el curso de Arquitectura de Software."
 
-publish_to: 'none' 
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -11,8 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ultralytics_yolo: 
+  ultralytics_yolo:
     path: ./modules/yolo-flutter-app
+  flutter_map_heatmap:
+    path: ./modules/fluttermap_heatmap
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   flutter_svg: ^2.1.0
@@ -23,6 +25,8 @@ dependencies:
   device_info_plus: ^11.5.0
   permission_handler: ^12.0.0+1
   path: ^1.9.1
+  flutter_map: ^8.1.1
+  location: ^8.0.1
 
 dev_dependencies:
   flutter_test:
