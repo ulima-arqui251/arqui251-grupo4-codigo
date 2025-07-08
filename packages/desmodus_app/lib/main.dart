@@ -8,7 +8,7 @@ void main() async {
 
   await GlobalApp.init();
 
-  const firstScreen = "/login";
+  const firstScreen = "/home";
 
   runApp(MainApp(firstScreen: firstScreen));
 }

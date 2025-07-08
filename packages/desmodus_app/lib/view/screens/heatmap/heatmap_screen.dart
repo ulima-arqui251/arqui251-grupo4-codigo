@@ -1,8 +1,8 @@
 import 'package:desmodus_app/utils/padding_extensions.dart';
+import 'package:desmodus_app/view/screens/heatmap/widgets/avistamiento_heatmap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:desmodus_app/view/screens/dashboard/home/widgets/map/avistamiento_heatmap.dart';
 import 'package:desmodus_app/view/screens/heatmap/widgets/avistamiento_tile.dart';
 import 'package:desmodus_app/viewmodel/controllers/location_controller.dart';
 import 'package:desmodus_app/viewmodel/controllers/sightings/remote_sightings_controller.dart';
