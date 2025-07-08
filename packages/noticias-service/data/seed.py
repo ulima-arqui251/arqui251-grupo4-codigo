@@ -1,101 +1,58 @@
 import os
 import random
-from sqlmodel import delete, text, Session
+from sqlmodel import delete, text, Session, select
 from decimal import Decimal
 from database import engine
 from faker import Faker
 
-from models.avist import Avist
-from models.users import Users
-
-
-def __load_ubigeos_sql():
-    ubigeos_path = os.path.join(os.path.dirname(__file__), "sql", "ubigeos.sql")
-    with open(ubigeos_path, "r", encoding='utf-8') as file:
-        sql = file.read()
-
+def seed_noticias():
+    from models.noticias import Noticia
+    from models.archivos import Archivo
+    from models.noticia_archivo import NoticiaArchivo
+    
     with Session(engine) as session:
-        try:
-            session.execute(text(sql))
-            session.commit()
-        except Exception as e:
-            if "duplicate key" in str(e):
-                print("Ubigeos already present, skipping insertion.")
-            else:
-                raise
-
-
-def __mock_avistamientos():
-    faker = Faker(
-        locale="es",
-    )
-
-    with Session(engine) as session:
-        faker_user = Users(
-            id=100,
-            name=faker.name(),
-            email=faker.email(),
-            phone=faker.phone_number(),
-            dni=str(faker.random_int(min=10000000, max=99999999)),
-            distrito_id=random.choice(
-                [
-                    "120501",
-                    "200101",
-                    "240101",
-                ]
-            ),
-        )
-
-        try:
-            session.add(faker_user)
-            session.commit()
-            session.refresh(faker_user)
-        except Exception as e:
-            if "duplicate key" in str(e):
-                print("User already present, skipping insertion.")
-                session.rollback()
-            else:
-                raise
-
-        assert faker_user.id == 100
-
-        statement = delete(Avist)
-        session.exec(statement)  # type: ignore
-
-        for i in range(1, 50 + 1):
-            fake_avist = Avist(
-                latitud=Decimal(random.uniform(-18.0, -0.04)),
-                longitud=Decimal(random.uniform(-81.35, -68.65)),
-                description=faker.text(max_nb_chars=200),
-                user_id=faker_user.id,
-                distrito_id=str(
-                    random.choice(
-                        [
-                            # Junin
-                            "120419",
-                            "120501",
-                            "120701",
-                            # Piura
-                            "200101",
-                            "200205",
-                            "200301",
-                            # Tumbes
-                            "240101",
-                            "240201",
-                            "240301",
-                        ]
-                    )
-                ),
-            )
-
-            session.add(fake_avist)
+        # Verificar si ya hay noticias
+        existing = session.exec(select(Noticia)).first()
+        if existing:
+            return
+        
+        noticias_data = [
+            {
+                "title": "Como reportar especies avistadas al SENASA",
+                "content": """El Servicio Nacional de Sanidad Agraria (SENASA) ha habilitado múltiples canales 
+                para que los ciudadanos puedan reportar avistamientos de murciélagos vampiro. 
+                Es importante reportar cualquier avistamiento para mantener un control efectivo de la población 
+                y prevenir la propagación de enfermedades. Los reportes pueden realizarse a través de la línea 
+                gratuita 0800-10828, la aplicación móvil SENASA Contigo, o directamente en las oficinas locales."""
+            },
+            {
+                "title": "Hábitat del murciélago vampiro",
+                "content": """Los murciélagos vampiro (Desmodus rotundus) habitan principalmente en cuevas, 
+                árboles huecos y construcciones abandonadas. Prefieren áreas con clima cálido y húmedo, 
+                cercanas a fuentes de alimento como ganado. En Lima, se han identificado colonias en los 
+                distritos de San Martín de Porres, Los Olivos e Independencia. Es importante conocer sus 
+                hábitats para evitar encuentros no deseados y tomar las precauciones necesarias."""
+            },
+            {
+                "title": "Brote de rabia en San Martín de Porres",
+                "content": """Las autoridades sanitarias han confirmado tres casos de rabia en animales 
+                domésticos en el distrito de San Martín de Porres. SENASA ha iniciado una campaña de 
+                vacunación masiva y recomienda a todos los dueños de mascotas acudir a los puntos de 
+                vacunación gratuita. Es fundamental mantener a las mascotas vacunadas y evitar el 
+                contacto con animales silvestres."""
+            }
+        ]
+        
+        for data in noticias_data:
+            noticia = Noticia(**data)
+            session.add(noticia)
+        
         session.commit()
 
 
 def seed_data():
     """Carga los datos iniciales de la base de datos"""
-    __load_ubigeos_sql()
-    __mock_avistamientos()
+    seed_noticias()
 
 
 __all__ = ["seed_data"]
