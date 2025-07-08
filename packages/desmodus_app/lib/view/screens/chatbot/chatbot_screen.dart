@@ -16,7 +16,7 @@ class ChatbotScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Text("Soporte", style: Theme.of(context).textTheme.titleSmall),
+            Text("Soporte", style: Theme.of(context).textTheme.titleLarge),
             // CHAT MESSAGES
             FutureBuilder<void>(
               future: assistantController.cargarHistorial(),

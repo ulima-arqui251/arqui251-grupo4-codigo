@@ -1,5 +1,7 @@
 import 'package:desmodus_app/view/ui/theme/colors.dart';
 import 'package:desmodus_app/view/ui/theme/fonts.dart';
+import 'package:desmodus_app/viewmodel/auth_controller.dart'
+    show AuthController;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desmodus_app/view/screens/home/widgets/news_card.dart';
@@ -12,9 +14,14 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
     return Stack(
       children: [
         Scaffold(
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.chat_bubble_outline, size: 28),
+            onPressed: () => Get.toNamed("chatbot"),
+          ),
           appBar: AppBar(
             elevation: 0,
             centerTitle: true,
@@ -37,6 +44,14 @@ class HomeScreen extends GetView<HomeController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        "Hola ${authController.userPayload["name"]}!",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: AppFonts.primaryFont,
+                        ),
+                      ),
                       const Text(
                         'Últimas noticias',
                         style: TextStyle(
