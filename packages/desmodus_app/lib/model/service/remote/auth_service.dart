@@ -17,10 +17,11 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      final jwt = response.headersSplitValues["set-cookie"]
-          ?.firstWhere((element) => element.contains("access_token"))
-          .split("=")[1]
-          .split(";")[0];
+      final jwt =
+          response.headersSplitValues["set-cookie"]
+              ?.firstWhere((element) => element.contains("access_token"))
+              .split("=")[1]
+              .split(";")[0];
 
       if (jwt != null) {
         return jwt;
