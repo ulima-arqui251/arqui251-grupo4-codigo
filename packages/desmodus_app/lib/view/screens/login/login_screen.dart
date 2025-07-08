@@ -6,6 +6,8 @@ import 'package:desmodus_app/view/screens/login/widget/app_logo.dart';
 import 'package:desmodus_app/view/screens/login/widget/discord_sign_in.dart';
 import 'package:desmodus_app/view/screens/login/widget/google_sign_in.dart';
 import 'package:desmodus_app/view/screens/login/widget/no_auth_access.dart';
+import 'package:desmodus_app/viewmodel/auth_controller.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
