@@ -39,47 +39,126 @@ class HomeScreen extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Sección de últimas noticias
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Hola ${authController.userPayload["name"]}!",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFonts.primaryFont,
-                        ),
-                      ),
-                      const Text(
-                        'Últimas noticias',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFonts.primaryFont,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Obx(
-                        () => Column(
-                          children:
-                              controller.newsList
-                                  .map(
-                                    (news) => NewsCard(
-                                      news: news,
-                                      onTap:
-                                          () => controller.navigateToNewsDetail(
-                                            news,
-                                          ),
-                                    ),
-                                  )
-                                  .toList(),
-                        ),
-                      ),
-                    ],
+                // Sección de últimas noticias
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 18),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Hola ${authController.userPayload["name"]}!",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          fontFamily: AppFonts.primaryFont,
+        ),
+      ),
+      const Text(
+        'Últimas noticias',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          fontFamily: AppFonts.primaryFont,
+        ),
+      ),
+      const SizedBox(height: 16),
+      Obx(() {
+        // Estado de carga
+        if (controller.isLoading.value) {
+          return Container(
+            height: 200,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        
+        // Estado de error
+        if (controller.errorMessage.value.isNotEmpty) {
+          return Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  color: AppColors.dangerColor,
+                  size: 48,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Error al cargar noticias',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.dangerColor,
+                    fontFamily: AppFonts.primaryFont,
                   ),
                 ),
+                const SizedBox(height: 8),
+                Text(
+                  controller.errorMessage.value,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                    fontFamily: AppFonts.primaryFont,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () => controller.refreshNews(),
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Reintentar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        
+        // Estado sin noticias
+        if (controller.sortedNewsList.isEmpty) {
+          return Container(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.article_outlined,
+                  color: Colors.grey[400],
+                  size: 64,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'No hay noticias disponibles',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    fontFamily: AppFonts.primaryFont,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        
+        // Lista de noticias
+        return Column(
+          children: controller.sortedNewsList
+              .map(
+                (news) => NewsCard(
+                  news: news,
+                  onTap: () => controller.navigateToNewsDetail(news),
+                ),
+              )
+              .toList(),
+        );
+      }),
+    ],
+  ),
+),
 
                 // Sección de zonas afectadas
                 Padding(

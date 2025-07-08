@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:desmodus_app/model/service/remote/news_service.dart';
 import 'package:desmodus_app/view/ui/theme/colors.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +44,7 @@ class HomeController extends GetxController {
   final RxInt currentIndex = 0.obs;
   
   // Lista de IDs de noticias marcadas como importantes
-  final RxList<String> importantNewsIds = <String>[].obs;
+  final RxList<int> importantNewsIds = <int>[].obs;
   
   // Ubicación del usuario
   final Rxn<LatLng> userLocation = Rxn<LatLng>();
@@ -57,6 +60,25 @@ class HomeController extends GetxController {
   
   // Notificaciones locales
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  final NewsService _newsService = NewsService();
+  final RxBool isLoading = false.obs;
+  final RxString errorMessage = ''.obs;
+
+  List<News> get sortedNewsList {
+  List<News> sorted = [...newsList];
+  sorted.sort((a, b) {
+    // Las importantes van primero
+    bool aImportant = isNewsImportant(a.id);
+    bool bImportant = isNewsImportant(b.id);
+    
+    if (aImportant && !bImportant) return -1;
+    if (!aImportant && bImportant) return 1;
+    
+    return 0;
+  });
+  return sorted;
+}
 
   @override
   void onInit() {
@@ -235,44 +257,43 @@ class HomeController extends GetxController {
   }
 
   // Cargar noticias
-  void loadNews() {
-    // Aquí irías a buscar las noticias desde tu servicio/repositorio
-    newsList.value = [
-      News(
-        id: '1',
-        title: 'Como reportar especies avistadas al SENASA',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce placerat nulla felis, ac efficitur dui faucibus consectetur. Nam',
-        imageUrl: 'https://www.cedepas.org.pe/sites/default/files/senasa2.png',
-        isUrgent: false,
-      ),
-      News(
-        id: '2',
-        title: 'Hábitat del murciélago vampiro',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce placerat nulla felis, ac efficitur dui faucibus consectetur. Nam',
-        imageUrl: 'https://media.es.wired.com/photos/6541313838775b6e711ea9e2/16:9/w_1920,c_limit/Vampire%20Bat_GettyImages-150370788.jpg',
-        isUrgent: false,
-      ),
-      News(
-        id: '3',
-        title: 'Brote de rabia en San Martín de Porres',
-        description: 'Se han confirmado 3 casos de rabia en animales domésticos. SENASA recomienda vacunación inmediata',
-        imageUrl: 'https://noticias-pe.laiglesiadejesucristo.org/media/960x540/SMP-distrito.jpg',
-        isUrgent: true,
-      ),
-    ];
+  void loadNews() async {
+    try {
+      isLoading.value = true;
+      errorMessage.value = '';
+      
+      final newsFromBackend = await _newsService.getAllNews();
+      newsList.value = newsFromBackend;
+      
+      // Verificar noticias urgentes
+      // _checkForUrgentNews();
+    } catch (e) {
+      errorMessage.value = e.toString();
+      Get.snackbar(
+        'Error',
+        'No se pudieron cargar las noticias',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppColors.dangerColor,
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
-    // Simular notificación de noticia urgente
-    _checkForUrgentNews();
+  // Refrescar noticias
+  Future<void> refreshNews() async {
+    loadNews();
   }
 
   // Verificar noticias urgentes
-  void _checkForUrgentNews() {
-    final urgentNews = newsList.where((news) => news.isUrgent).toList();
+  // void _checkForUrgentNews() {
+  //   final urgentNews = newsList.where((news) => news.isUrgent).toList();
     
-    for (var news in urgentNews) {
-      _sendUrgentNewsNotification(news);
-    }
-  }
+  //   for (var news in urgentNews) {
+  //     _sendUrgentNewsNotification(news);
+  //   }
+  // }
 
   // Enviar notificación de noticia urgente
   void _sendUrgentNewsNotification(News news) async {
@@ -298,7 +319,7 @@ class HomeController extends GetxController {
   }
 
   // Marcar/desmarcar noticia como importante
-void toggleImportantNews(String newsId) {
+void toggleImportantNews(int newsId) {
   if (importantNewsIds.contains(newsId)) {
     importantNewsIds.remove(newsId);
     Get.snackbar(
@@ -323,7 +344,7 @@ void toggleImportantNews(String newsId) {
 }
 
   // Verificar si una noticia está marcada como importante
-  bool isNewsImportant(String newsId) {
+  bool isNewsImportant(int newsId) {
     return importantNewsIds.contains(newsId);
   }
 

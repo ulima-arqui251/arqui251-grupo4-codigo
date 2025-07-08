@@ -1,12 +1,12 @@
 class News {
-  final String id;
+  final int id;  // Cambiar de String a int
   final String title;
   final String description;
   final String? imageUrl;
   final DateTime? publishedAt;
   final String? author;
   final String? content;
-  final bool isUrgent;
+  final bool isImportant;
 
   News({
     required this.id,
@@ -16,34 +16,21 @@ class News {
     this.publishedAt,
     this.author,
     this.content,
-    this.isUrgent = false,
+    this.isImportant = false,
   });
 
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
       id: json['id'],
       title: json['title'],
-      description: json['description'],
-      imageUrl: json['imageUrl'],
-      publishedAt: json['publishedAt'] != null 
-          ? DateTime.parse(json['publishedAt']) 
+      description: json['description'] ?? json['content']?.substring(0, 150) ?? '',
+      imageUrl: json['image_url'],
+      publishedAt: json['published_at'] != null 
+          ? DateTime.parse(json['published_at']) 
           : null,
       author: json['author'],
       content: json['content'],
-      isUrgent: json['isUrgent'] ?? false,
+      isImportant: json['is_important'] ?? false,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'imageUrl': imageUrl,
-      'publishedAt': publishedAt?.toIso8601String(),
-      'author': author,
-      'content': content,
-      'isUrgent': isUrgent,
-    };
   }
 }
