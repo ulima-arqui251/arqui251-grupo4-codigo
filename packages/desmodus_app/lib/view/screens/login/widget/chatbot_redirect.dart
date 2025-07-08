@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MapButton extends StatelessWidget {
-  const MapButton({super.key});
+class ChatbotButton extends StatelessWidget {
+  const ChatbotButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class MapButton extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.map),
+          const Icon(Icons.chat),
           const SizedBox(width: 8),
           const Text('Hablar con chatbot'),
         ],

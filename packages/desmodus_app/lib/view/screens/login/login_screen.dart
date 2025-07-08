@@ -6,6 +6,7 @@ import 'package:desmodus_app/view/screens/login/widget/app_logo.dart';
 import 'package:desmodus_app/view/screens/login/widget/discord_sign_in.dart';
 import 'package:desmodus_app/view/screens/login/widget/google_sign_in.dart';
 import 'package:desmodus_app/view/screens/login/widget/no_auth_access.dart';
+import 'package:desmodus_app/view/screens/login/widget/chatbot_redirect.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // NO AUTH ACCESS BUTTON
             NoAuthAccessButton(),
             MapButton(),
+            ChatbotButton(),
           ],
         ),
       ),
