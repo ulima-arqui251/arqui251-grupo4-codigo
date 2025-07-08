@@ -12,7 +12,6 @@ class AffectedZonesMap extends GetView<HomeController> {
     return Container(
       height: 250,
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -28,65 +27,78 @@ class AffectedZonesMap extends GetView<HomeController> {
           // Mapa OpenStreetMap
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Obx(() => FlutterMap(
-              options: MapOptions(
-                initialCenter: controller.userLocation.value ?? 
-                    const LatLng(-12.1175, -77.0467), // Lima por defecto
-                initialZoom: 13.0,
-                onTap: (_, __) => controller.checkZoneAlert(),
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.desmodus_app',
+            child: Obx(
+              () => FlutterMap(
+                options: MapOptions(
+                  initialCenter:
+                      controller.userLocation.value ??
+                      const LatLng(-12.1175, -77.0467), // Lima por defecto
+                  initialZoom: 13.0,
+                  onTap: (_, __) => controller.checkZoneAlert(),
                 ),
-                // Capa de zonas críticas
-                CircleLayer(
-                  circles: controller.criticalZones.map((zone) => 
-                    CircleMarker(
-                      point: zone.center,
-                      radius: zone.radius,
-                      color: Colors.red.withValues(alpha: 0.3),
-                      borderColor: Colors.red,
-                      borderStrokeWidth: 2,
-                    ),
-                  ).toList(),
-                ),
-                // Marcador de ubicación del usuario
-                if (controller.userLocation.value != null)
-                  MarkerLayer(
-                    markers: [
-                      Marker(
-                        point: controller.userLocation.value!,
-                        width: 40,
-                        height: 40,
-                        child: const Icon(
-                          Icons.my_location,
-                          color: Colors.blue,
-                          size: 30,
-                        ),
-                      ),
-                    ],
+                children: [
+                  TileLayer(
+                    urlTemplate:
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: 'com.example.desmodus_app',
                   ),
-                // Marcadores de avistamientos
-                MarkerLayer(
-                  markers: controller.sightingMarkers.map((sighting) =>
-                    Marker(
-                      point: sighting.location,
-                      width: 40,
-                      height: 40,
-                      child: Icon(
-                        Icons.location_on,
-                        color: sighting.isCritical ? Colors.red : Colors.orange,
-                        size: 30,
-                      ),
+                  // Capa de zonas críticas
+                  CircleLayer(
+                    circles:
+                        controller.criticalZones
+                            .map(
+                              (zone) => CircleMarker(
+                                point: zone.center,
+                                radius: zone.radius,
+                                color: Colors.red.withValues(alpha: 0.3),
+                                borderColor: Colors.red,
+                                borderStrokeWidth: 2,
+                              ),
+                            )
+                            .toList(),
+                  ),
+                  // Marcador de ubicación del usuario
+                  if (controller.userLocation.value != null)
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: controller.userLocation.value!,
+                          width: 40,
+                          height: 40,
+                          child: const Icon(
+                            Icons.my_location,
+                            color: Colors.blue,
+                            size: 30,
+                          ),
+                        ),
+                      ],
                     ),
-                  ).toList(),
-                ),
-              ],
-            )),
+                  // Marcadores de avistamientos
+                  MarkerLayer(
+                    markers:
+                        controller.sightingMarkers
+                            .map(
+                              (sighting) => Marker(
+                                point: sighting.location,
+                                width: 40,
+                                height: 40,
+                                child: Icon(
+                                  Icons.location_on,
+                                  color:
+                                      sighting.isCritical
+                                          ? Colors.red
+                                          : Colors.orange,
+                                  size: 30,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ],
+              ),
+            ),
           ),
-          
+
           // Botón de expandir
           Positioned(
             top: 16,
@@ -95,7 +107,6 @@ class AffectedZonesMap extends GetView<HomeController> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
@@ -112,14 +123,17 @@ class AffectedZonesMap extends GetView<HomeController> {
               ),
             ),
           ),
-          
+
           // Indicador de zona crítica
           if (controller.isInCriticalZone.value)
             Positioned(
               top: 16,
               left: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(20),

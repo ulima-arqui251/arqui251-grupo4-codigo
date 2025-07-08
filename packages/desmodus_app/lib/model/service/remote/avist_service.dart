@@ -12,7 +12,7 @@ class RemoteSightingsService {
     int limit = 50,
   }) async {
     final res = await http.get(
-      Uri.parse('${Config.apiUrl}/avist?offset=$offset&limit=$limit'),
+      Uri.parse('${Config.authApiUrl}/avist?offset=$offset&limit=$limit'),
       headers: {'Content-Type': 'application/json'},
     );
     if (res.statusCode == 200) {
@@ -27,7 +27,7 @@ class RemoteSightingsService {
     final userJwt = await getCookie("access_token");
 
     final res = await http.get(
-      Uri.parse('${Config.apiUrl}/avist/user'),
+      Uri.parse('${Config.authApiUrl}/avist/user'),
       headers: {
         'Content-Type': 'application/json',
         "Cookie": "access_token=$userJwt",
@@ -46,7 +46,7 @@ class RemoteSightingsService {
 
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('${Config.apiUrl}/avist/'),
+      Uri.parse('${Config.authApiUrl}/avist/'),
     );
 
     request.fields["data"] = jsonEncode(avist.toJson());

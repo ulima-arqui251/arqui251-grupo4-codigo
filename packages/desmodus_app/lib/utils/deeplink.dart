@@ -18,35 +18,38 @@ class DeepLinkParser {
       AuthService().getUserPayload(jwt);
 
   void initDeepLinkHandler() => _appLinks.uriLinkStream.listen((Uri uri) {
-        print("Deep link recibido: $uri");
-        final String jwt = uri.queryParameters['jwt'] ?? '';
+    print("Deep link recibido: $uri");
+    final String jwt = uri.queryParameters['jwt'] ?? '';
 
-      if (jwt.isNotEmpty) {
-        storeCookie("access_token", jwt);
+    if (jwt.isNotEmpty) {
+      storeCookie("access_token", jwt);
 
-        bool isUserDataComplete(Map<String, dynamic> user) {
-          final requiredFields = ["name", "email", "phone", "dni", "distrito_id"];
-          for (var field in requiredFields) {
-            if (user[field] == null || (user[field] is String && user[field].trim().isEmpty)) {
-              return false;
-            }
+      bool isUserDataComplete(Map<String, dynamic> user) {
+        final requiredFields = ["name", "email", "phone", "dni", "distrito_id"];
+        for (var field in requiredFields) {
+          if (user[field] == null ||
+              (user[field] is String && user[field].trim().isEmpty)) {
+            return false;
           }
-          return true;
         }
-
-        _getUserPayload(jwt).then((user) {
-          print("Autorización exitosa: $jwt");
-          // Get.offAndToNamed("/dashboard", arguments: payload);
-          if (isUserDataComplete(user)) {
-            Get.offAndToNamed("/dashboard");
-          } else {
-            Get.offAndToNamed("/cuestionario");
-          }
-        }).catchError((e) {
-          print(e);
-        });
+        return true;
       }
-    });
+
+      _getUserPayload(jwt)
+          .then((user) {
+            print("Autorización exitosa: $jwt");
+            // Get.offAndToNamed("/dashboard", arguments: payload);
+            if (isUserDataComplete(user)) {
+              Get.offAndToNamed("/dashboard");
+            } else {
+              Get.offAndToNamed("/cuestionario");
+            }
+          })
+          .catchError((e) {
+            print(e);
+          });
+    }
+  });
 
   Future<String> getFirstScreen() async {
     Uri? uri = await getInitialLink();
@@ -67,7 +70,7 @@ class DeepLinkParser {
         print("Autorización exitosa: $jwt");
         print(payload);
 
-        return "/dashboard";
+        return "/home";
       } catch (e) {
         print("Error en la autorización: $e");
       }

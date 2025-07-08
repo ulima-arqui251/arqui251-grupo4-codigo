@@ -17,7 +17,6 @@ class DistrictRanking extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
           BoxShadow(
@@ -49,10 +48,7 @@ class DistrictRanking extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      name,
-                      style: const TextStyle(fontSize: 16),
-                    ),
+                    child: Text(name, style: const TextStyle(fontSize: 16)),
                   ),
                   Text(
                     '$attacks ataques',

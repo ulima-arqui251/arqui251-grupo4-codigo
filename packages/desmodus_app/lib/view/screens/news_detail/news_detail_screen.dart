@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:desmodus_app/view/ui/theme/colors.dart';
 import 'package:desmodus_app/view/ui/theme/fonts.dart';
 import 'package:desmodus_app/viewmodel/controllers/news_detail_controller.dart';
-import 'package:share_plus/share_plus.dart';
 
 class NewsDetailScreen extends GetView<NewsDetailController> {
-  const NewsDetailScreen({Key? key}) : super(key: key);
+  const NewsDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +26,27 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                   // Imagen de fondo
                   controller.news.imageUrl != null
                       ? Image.network(
-                          controller.news.imageUrl!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[300],
-                              child: const Icon(
-                                Icons.image,
-                                color: Colors.grey,
-                                size: 80,
-                              ),
-                            );
-                          },
-                        )
+                        controller.news.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey[300],
+                            child: const Icon(
+                              Icons.image,
+                              color: Colors.grey,
+                              size: 80,
+                            ),
+                          );
+                        },
+                      )
                       : Container(
-                          color: Colors.grey[300],
-                          child: const Icon(
-                            Icons.image,
-                            color: Colors.grey,
-                            size: 80,
-                          ),
+                        color: Colors.grey[300],
+                        child: const Icon(
+                          Icons.image,
+                          color: Colors.grey,
+                          size: 80,
                         ),
+                      ),
                   // Gradiente oscuro
                   Container(
                     decoration: BoxDecoration(
@@ -80,26 +79,29 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                         ),
                         const SizedBox(width: 8),
                         // Botón de importante
-                        Obx(() => Container(
-                          decoration: BoxDecoration(
-                            color: controller.isImportant.value
-                                ? AppColors.warningColor
-                                : Colors.black.withValues(alpha: 0.5),
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                            icon: Text(
-                              '!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: AppFonts.primaryFont,
-                              ),
+                        Obx(
+                          () => Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  controller.isImportant.value
+                                      ? AppColors.warningColor
+                                      : Colors.black.withValues(alpha: 0.5),
+                              shape: BoxShape.circle,
                             ),
-                            onPressed: () => controller.toggleImportant(),
+                            child: IconButton(
+                              icon: Text(
+                                '!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: AppFonts.primaryFont,
+                                ),
+                              ),
+                              onPressed: () => controller.toggleImportant(),
+                            ),
                           ),
-                        )),
+                        ),
                       ],
                     ),
                   ),
@@ -115,21 +117,25 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Fecha y autor
-                  if (controller.news.publishedAt != null || controller.news.author != null)
+                  if (controller.news.publishedAt != null ||
+                      controller.news.author != null)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: Row(
                         children: [
                           if (controller.news.publishedAt != null)
                             Text(
-                              controller.formatDate(controller.news.publishedAt!),
+                              controller.formatDate(
+                                controller.news.publishedAt!,
+                              ),
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontSize: 14,
                                 fontFamily: AppFonts.primaryFont,
                               ),
                             ),
-                          if (controller.news.publishedAt != null && controller.news.author != null)
+                          if (controller.news.publishedAt != null &&
+                              controller.news.author != null)
                             Text(
                               ' • ',
                               style: TextStyle(color: Colors.grey[600]),
@@ -146,7 +152,7 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                         ],
                       ),
                     ),
-                  
+
                   // Título
                   Text(
                     controller.news.title,
@@ -158,7 +164,7 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Descripción
                   Text(
                     controller.news.description,
@@ -170,7 +176,7 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  
+
                   // Contenido completo
                   if (controller.news.content != null)
                     Text(
@@ -181,9 +187,9 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                         height: 1.6,
                       ),
                     ),
-                  
+
                   const SizedBox(height: 32),
-                  
+
                   // Sección de recomendaciones
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -231,9 +237,9 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                       ],
                     ),
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Botón de reportar avistamiento
                   SizedBox(
                     width: double.infinity,
@@ -258,7 +264,7 @@ class NewsDetailScreen extends GetView<NewsDetailController> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 32),
                 ],
               ),

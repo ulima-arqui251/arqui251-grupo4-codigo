@@ -1,16 +1,11 @@
 import 'dart:convert';
+import 'package:desmodus_app/config.dart' show Config;
 import 'package:http/http.dart' as http;
 
 class AssistantService {
-  final String baseUrl;
-
-  AssistantService({
-    this.baseUrl = 'http://localhost:8000',
-  }); // cambia según sea necesario
-
   Future<String> preguntarChatbot(String message) async {
     final uri = Uri.parse(
-      '$baseUrl/chat?prompt=${Uri.encodeComponent(message)}',
+      '${Config.chatbotApiUrl}/chat?prompt=${Uri.encodeComponent(message)}',
     );
 
     final response = await http.get(uri);

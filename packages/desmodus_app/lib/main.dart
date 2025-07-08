@@ -9,8 +9,6 @@ void main() async {
 
   await GlobalApp.init();
 
-  const firstScreen = "/home";
-
   DeepLinkParser().initDeepLinkHandler();
 
   final firstScreen = await DeepLinkParser().getFirstScreen();
@@ -33,8 +31,9 @@ class MainApp extends StatelessWidget {
           body: Expanded(
             child: Center(
               child: Text(
-                  "No se han podido leer las variables de entorno, reucerda usar un .env",
-                  textAlign: TextAlign.center),
+                "No se han podido leer las variables de entorno, reucerda usar un .env",
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

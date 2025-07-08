@@ -11,7 +11,6 @@ import 'package:desmodus_app/view/screens/chatbot/chatbot_screen.dart'
     show ChatbotScreen;
 import 'package:desmodus_app/view/screens/cuestionario/cuestionario_screen.dart';
 import 'package:desmodus_app/view/ui/theme/theme.dart';
-import 'package:desmodus_app/viewmodel/bindings/auth_bindings.dart';
 import 'package:desmodus_app/viewmodel/controllers/location_controller.dart';
 import 'package:desmodus_app/viewmodel/controllers/news_detail_controller.dart';
 import 'package:desmodus_app/viewmodel/controllers/sightings/remote_sightings_controller.dart';
@@ -27,7 +26,6 @@ GetMaterialApp getAppRouter(String firstScreen) {
       GetPage(
         name: '/login',
         page: () => const LoginScreen(),
-        binding: AuthBindings(),
         children: [
           GetPage(name: '/no-auth-cta', page: () => const NoAuthCtaScreen()),
         ],
@@ -65,20 +63,6 @@ GetMaterialApp getAppRouter(String firstScreen) {
         }),
       ),
       GetPage(name: '/cuestionario', page: () => const CuestionarioScreen()),
-      //  GetPage(
-      //    name: '/location-map',
-      //    page: () => const LocationMapFullScreen(),
-      //  )
-      //  GetPage(
-      //    name: '/dashboard',
-      //    page: () => const DashboardScreen(),
-      //    middlewares: [
-      //      AuthGuard()
-      //    ],
-      //    bindings: [
-      //      DashboardBindings(),
-      //    ],
-      //  ),
     ],
     initialBinding: InitialBindings(),
   );
