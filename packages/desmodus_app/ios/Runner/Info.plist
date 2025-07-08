@@ -47,5 +47,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Esta app necesita acceso a tu ubicación para alertarte sobre zonas críticas</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Esta app necesita acceso a tu ubicación para alertarte sobre zonas críticas incluso en segundo plano</string>
 	</dict>
 </plist>

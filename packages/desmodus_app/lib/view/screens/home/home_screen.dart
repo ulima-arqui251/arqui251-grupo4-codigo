@@ -24,7 +24,7 @@ class HomeScreen extends GetView<HomeController> {
               'Desmodus App',
               style: TextStyle(
                 color: AppColors.textColor,
-                fontSize: 24,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.primaryFont,
               ),
@@ -36,7 +36,7 @@ class HomeScreen extends GetView<HomeController> {
               children: [
                 // Sección de últimas noticias
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

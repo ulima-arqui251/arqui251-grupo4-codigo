@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 class DistrictRanking extends StatelessWidget {
   const DistrictRanking({Key? key}) : super(key: key);
 
+  // Lista ficticia de distritos con puntaje de afectación
+  final List<Map<String, dynamic>> districtData = const [
+    {'name': 'San Juan de Lurigancho', 'attacks': 24},
+    {'name': 'Villa El Salvador', 'attacks': 20},
+    {'name': 'Comas', 'attacks': 17},
+    {'name': 'Ate', 'attacks': 15},
+    {'name': 'Puente Piedra', 'attacks': 12},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,31 +19,53 @@ class DistrictRanking extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.grey..withValues(alpha: 0.1),
+            color: Colors.black12,
             spreadRadius: 1,
             blurRadius: 5,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Work In Progress',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Icon(
-            Icons.construction,
-            size: 48,
-            color: Colors.grey[400],
-          ),
+          ...districtData.asMap().entries.map((entry) {
+            int index = entry.key + 1;
+            String name = entry.value['name'];
+            int attacks = entry.value['attacks'];
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Row(
+                children: [
+                  Text(
+                    '$index.',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      name,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Text(
+                    '$attacks ataques',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
         ],
       ),
     );

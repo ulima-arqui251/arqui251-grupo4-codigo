@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:get/get.dart';
+import 'package:desmodus_app/viewmodel/controllers/home_controller.dart';
 
-class AffectedZonesMap extends StatelessWidget {
+class AffectedZonesMap extends GetView<HomeController> {
   const AffectedZonesMap({Key? key}) : super(key: key);
 
   @override
@@ -12,7 +16,7 @@ class AffectedZonesMap extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey..withValues(alpha: 0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 2),
@@ -21,22 +25,66 @@ class AffectedZonesMap extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // Aquí iría el mapa real con flutter_map o google_maps_flutter
-          // Por ahora uso un placeholder
+          // Mapa OpenStreetMap
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Container(
-              color: Colors.grey[200],
-              child: const Center(
-                child: Text(
-                  'Mapa de zonas afectadas',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),
-                ),
+            child: Obx(() => FlutterMap(
+              options: MapOptions(
+                initialCenter: controller.userLocation.value ?? 
+                    const LatLng(-12.1175, -77.0467), // Lima por defecto
+                initialZoom: 13.0,
+                onTap: (_, __) => controller.checkZoneAlert(),
               ),
-            ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  userAgentPackageName: 'com.example.desmodus_app',
+                ),
+                // Capa de zonas críticas
+                CircleLayer(
+                  circles: controller.criticalZones.map((zone) => 
+                    CircleMarker(
+                      point: zone.center,
+                      radius: zone.radius,
+                      color: Colors.red.withValues(alpha: 0.3),
+                      borderColor: Colors.red,
+                      borderStrokeWidth: 2,
+                    ),
+                  ).toList(),
+                ),
+                // Marcador de ubicación del usuario
+                if (controller.userLocation.value != null)
+                  MarkerLayer(
+                    markers: [
+                      Marker(
+                        point: controller.userLocation.value!,
+                        width: 40,
+                        height: 40,
+                        child: const Icon(
+                          Icons.my_location,
+                          color: Colors.blue,
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                // Marcadores de avistamientos
+                MarkerLayer(
+                  markers: controller.sightingMarkers.map((sighting) =>
+                    Marker(
+                      point: sighting.location,
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.location_on,
+                        color: sighting.isCritical ? Colors.red : Colors.orange,
+                        size: 30,
+                      ),
+                    ),
+                  ).toList(),
+                ),
+              ],
+            )),
           ),
           
           // Botón de expandir
@@ -51,7 +99,7 @@ class AffectedZonesMap extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black..withValues(alpha: 0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     spreadRadius: 1,
                     blurRadius: 5,
                     offset: const Offset(0, 2),
@@ -60,23 +108,39 @@ class AffectedZonesMap extends StatelessWidget {
               ),
               child: IconButton(
                 icon: const Icon(Icons.fullscreen, size: 20),
-                onPressed: () {
-                  // Navegar a vista completa del mapa
-                },
+                onPressed: () => Get.toNamed('/heatmap'),
               ),
             ),
           ),
           
-          // Marcador de ejemplo
-          const Positioned(
-            bottom: 100,
-            left: 150,
-            child: Icon(
-              Icons.location_on,
-              color: Colors.black,
-              size: 40,
+          // Indicador de zona crítica
+          if (controller.isInCriticalZone.value)
+            Positioned(
+              top: 16,
+              left: 16,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.warning, color: Colors.white, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Zona Crítica',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );

@@ -6,6 +6,7 @@ class News {
   final DateTime? publishedAt;
   final String? author;
   final String? content;
+  final bool isUrgent;
 
   News({
     required this.id,
@@ -15,6 +16,7 @@ class News {
     this.publishedAt,
     this.author,
     this.content,
+    this.isUrgent = false,
   });
 
   factory News.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class News {
           : null,
       author: json['author'],
       content: json['content'],
+      isUrgent: json['isUrgent'] ?? false,
     );
   }
 
@@ -40,6 +43,7 @@ class News {
       'publishedAt': publishedAt?.toIso8601String(),
       'author': author,
       'content': content,
+      'isUrgent': isUrgent,
     };
   }
 }
