@@ -1,5 +1,0 @@
-fastapi
-huggingface_hub
-pydantic
-python-dotenv
-pydantic_settings

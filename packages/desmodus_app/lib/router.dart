@@ -2,6 +2,8 @@ import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:desmodus_app/view/screens/login/login_screen.dart';
 import 'package:desmodus_app/view/screens/login/no-auth-cta/no_auth_cta_screen.dart';
+import 'package:desmodus_app/view/screens/chatbot/chatbot_screen.dart'
+    show ChatbotScreen;
 import 'package:desmodus_app/view/screens/detector/detector_screen.dart';
 import 'package:desmodus_app/view/screens/heatmap/heatmap_screen.dart';
 import 'package:desmodus_app/view/screens/cuestionario/cuestionario_screen.dart';
@@ -12,6 +14,10 @@ import 'package:desmodus_app/viewmodel/controllers/location_controller.dart';
 import 'package:desmodus_app/viewmodel/controllers/sightings/remote_sightings_controller.dart';
 import 'package:desmodus_app/viewmodel/middleware/auth_guard.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:get/get.dart';
+import 'package:desmodus_app/view/screens/login/login_screen.dart';
+import 'package:desmodus_app/view/screens/login/no-auth-cta/no_auth_cta_screen.dart';
+import 'package:desmodus_app/view/ui/theme/theme.dart';
 
 GetMaterialApp getAppRouter(String firstScreen) {
   return GetMaterialApp(
@@ -35,6 +41,11 @@ GetMaterialApp getAppRouter(String firstScreen) {
       GetPage(
         name: '/detector',
         page: () => const DetectorScreen(),
+        // bindings: [],
+      ),
+      GetPage(
+        name: '/chatbot',
+        page: () => const ChatbotScreen(),
         // bindings: [],
       ),
       GetPage(
