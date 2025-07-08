@@ -16,20 +16,20 @@ El chatbot responde preguntas mediante un modelo de lenguaje (Llama 3.1) alojado
 
 ## 🧰 Librerías utilizadas
 
-| Paquete        | Descripción                              |
-|----------------|------------------------------------------|
-| `fastapi`      | Framework principal para construir la API |
-| `uvicorn`      | Servidor ASGI para correr la app         |
-| `pydantic`     | Configuración y validaciones de entorno  |
-| `pydantic_settings`| Configuración y validaciones de entorno  |
-| `python-dotenv`| Lectura de variables de entorno `.env`   |
-| `huggingface_hub`  | Cliente de inferencia hacia Hugging Face |
+| Paquete             | Descripción                               |
+| ------------------- | ----------------------------------------- |
+| `fastapi`           | Framework principal para construir la API |
+| `uvicorn`           | Servidor ASGI para correr la app          |
+| `pydantic`          | Configuración y validaciones de entorno   |
+| `pydantic_settings` | Configuración y validaciones de entorno   |
+| `python-dotenv`     | Lectura de variables de entorno `.env`    |
+| `huggingface_hub`   | Cliente de inferencia hacia Hugging Face  |
 
 ---
 
 ## Estructura del proyecto
 
-``` pgsql
+```pgsql
 chatbot-api
 ├── services
 │   └── chat_service.py
@@ -95,6 +95,13 @@ HF_TOKEN=tu_token_privado
 
 ```bash
 uvicorn app:app --host 0.0.0.0 --port 3005 --workers 4
+```
+
+6. Docker (opcional)
+
+```sh
+docker build -t garma/chatbot_backend .
+docker run -e HF_TOKEN="secret" garma/chatbot_backend
 ```
 
 ---
