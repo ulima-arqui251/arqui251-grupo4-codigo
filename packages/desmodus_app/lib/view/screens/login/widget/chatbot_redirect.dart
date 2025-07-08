@@ -7,13 +7,13 @@ class MapButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => Get.toNamed('/heatmap'),
+      onPressed: () => Get.toNamed('/chatbot'),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.lock_open),
+          const Icon(Icons.map),
           const SizedBox(width: 8),
-          const Text('Ingresar al mapa'),
+          const Text('Hablar con chatbot'),
         ],
       ),
     );

@@ -4,8 +4,8 @@ import 'package:desmodus_app/viewmodel/controllers/chatbot_controller.dart';
 import 'package:desmodus_app/model/entity/local_message.dart';
 import 'package:desmodus_app/view/screens/chatbot/widget/message_widget.dart';
 
-class AssistantPage extends StatelessWidget {
-  const AssistantPage({super.key});
+class ChatbotScreen extends StatelessWidget {
+  const ChatbotScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
