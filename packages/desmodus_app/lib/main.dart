@@ -9,6 +9,8 @@ void main() async {
 
   await GlobalApp.init();
 
+  const firstScreen = "/home";
+
   DeepLinkParser().initDeepLinkHandler();
 
   final firstScreen = await DeepLinkParser().getFirstScreen();
