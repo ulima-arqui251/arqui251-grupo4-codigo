@@ -11,7 +11,7 @@ import 'package:ultralytics_yolo/yolo_model.dart';
 class DetectorController extends GetxController {
   final detectionModel = 'desmodus-y11n'.obs;
 
-  final detectionThreshold = 0.20.obs;
+  final detectionThreshold = 0.80.obs;
 
   final isInferenceOn = true.obs;
   final isFlashlightOn = false.obs;

@@ -65,20 +65,6 @@ GetMaterialApp getAppRouter(String firstScreen) {
         }),
       ),
       GetPage(name: '/cuestionario', page: () => const CuestionarioScreen()),
-      //  GetPage(
-      //    name: '/location-map',
-      //    page: () => const LocationMapFullScreen(),
-      //  )
-      //  GetPage(
-      //    name: '/dashboard',
-      //    page: () => const DashboardScreen(),
-      //    middlewares: [
-      //      AuthGuard()
-      //    ],
-      //    bindings: [
-      //      DashboardBindings(),
-      //    ],
-      //  ),
     ],
     initialBinding: InitialBindings(),
   );

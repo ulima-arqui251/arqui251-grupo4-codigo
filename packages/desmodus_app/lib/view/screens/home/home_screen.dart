@@ -8,22 +8,19 @@ import 'package:desmodus_app/view/screens/home/widgets/district_ranking.dart';
 import 'package:desmodus_app/viewmodel/controllers/home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: AppColors.backgroundColor,
           appBar: AppBar(
-            backgroundColor: AppColors.backgroundColor,
             elevation: 0,
             centerTitle: true,
             title: Text(
               'Desmodus App',
               style: TextStyle(
-                color: AppColors.textColor,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.primaryFont,
@@ -49,18 +46,26 @@ class HomeScreen extends GetView<HomeController> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Obx(() => Column(
-                        children: controller.newsList
-                            .map((news) => NewsCard(
-                                  news: news,
-                                  onTap: () => controller.navigateToNewsDetail(news),
-                                ))
-                            .toList(),
-                      )),
+                      Obx(
+                        () => Column(
+                          children:
+                              controller.newsList
+                                  .map(
+                                    (news) => NewsCard(
+                                      news: news,
+                                      onTap:
+                                          () => controller.navigateToNewsDetail(
+                                            news,
+                                          ),
+                                    ),
+                                  )
+                                  .toList(),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                
+
                 // Sección de zonas afectadas
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -80,7 +85,7 @@ class HomeScreen extends GetView<HomeController> {
                     ],
                   ),
                 ),
-                
+
                 // Sección de ranking de distritos
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -150,7 +155,7 @@ class HomeScreen extends GetView<HomeController> {
                   width: 64,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.secondaryColor,
+                    color: AppColors.primaryColor,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.2),

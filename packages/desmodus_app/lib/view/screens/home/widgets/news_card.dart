@@ -9,11 +9,8 @@ class NewsCard extends GetView<HomeController> {
   final News news;
   final VoidCallback onTap;
 
-  const NewsCard({
-    Key? key,
-    required this.news,
-    required this.onTap,
-  }) : super(key: key);
+  const NewsCard({Key? key, required this.news, required this.onTap})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +23,6 @@ class NewsCard extends GetView<HomeController> {
             margin: const EdgeInsets.only(bottom: 16),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -47,23 +43,24 @@ class NewsCard extends GetView<HomeController> {
                     width: 80,
                     height: 80,
                     color: Colors.grey[300],
-                    child: news.imageUrl != null
-                        ? Image.network(
-                            news.imageUrl!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(
-                                Icons.image,
-                                color: Colors.grey,
-                                size: 40,
-                              );
-                            },
-                          )
-                        : const Icon(
-                            Icons.image,
-                            color: Colors.grey,
-                            size: 40,
-                          ),
+                    child:
+                        news.imageUrl != null
+                            ? Image.network(
+                              news.imageUrl!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(
+                                  Icons.image,
+                                  color: Colors.grey,
+                                  size: 40,
+                                );
+                              },
+                            )
+                            : const Icon(
+                              Icons.image,
+                              color: Colors.grey,
+                              size: 40,
+                            ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -103,40 +100,44 @@ class NewsCard extends GetView<HomeController> {
           Positioned(
             top: -8,
             right: -7,
-            child: Obx(() => GestureDetector(
-              onTap: () => controller.toggleImportantNews(news.id),
-              child: Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: controller.isNewsImportant(news.id)
-                      ? AppColors.warningColor
-                      : Colors.grey[300],
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    '!',
-                    style: TextStyle(
-                      color: controller.isNewsImportant(news.id)
-                          ? Colors.white
-                          : Colors.grey[600],
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.primaryFont,
+            child: Obx(
+              () => GestureDetector(
+                onTap: () => controller.toggleImportantNews(news.id),
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color:
+                        controller.isNewsImportant(news.id)
+                            ? AppColors.warningColor
+                            : Colors.grey[300],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.2),
+                        spreadRadius: 1,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      '!',
+                      style: TextStyle(
+                        color:
+                            controller.isNewsImportant(news.id)
+                                ? Colors.white
+                                : Colors.grey[600],
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: AppFonts.primaryFont,
+                      ),
                     ),
                   ),
                 ),
               ),
-            )),
+            ),
           ),
         ],
       ),
