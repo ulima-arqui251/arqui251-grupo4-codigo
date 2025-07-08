@@ -1,4 +1,5 @@
 import 'package:desmodus_app/view/screens/login/widget/facebook_sign_in.dart';
+import 'package:desmodus_app/view/screens/login/widget/map.dart';
 import 'package:flutter/material.dart';
 import 'package:desmodus_app/utils/padding_extensions.dart';
 import 'package:desmodus_app/view/screens/login/widget/app_logo.dart';
@@ -40,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ShortDivider(),
             // NO AUTH ACCESS BUTTON
             NoAuthAccessButton(),
+            MapButton(),
           ],
         ),
       ),
